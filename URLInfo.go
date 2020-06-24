@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"strconv"
 )
 
 type URLInfo struct {
@@ -44,12 +45,12 @@ func (urlInfo *URLInfo) SendTrackerRequest(tracker string) error {
 	}
 
 	urlParameters := url.Values{
-		"info_hash":  []string{fmt.Sprint(urlInfo.infoHash)},
-		"peer_id":    []string{fmt.Sprint(urlInfo.peerID)},
-		"port":       []string{string(urlInfo.port)},
-		"uploaded":   []string{string(urlInfo.uploaded)},
-		"downloaded": []string{string(urlInfo.downloaded)},
-		"left":       []string{string(urlInfo.left)},
+		"info_hash":  []string{string(urlInfo.infoHash[:])},
+		"peer_id":    []string{string(urlInfo.peerID[:])},
+		"port":       []string{strconv.Itoa(int(urlInfo.port))},
+		"uploaded":   []string{strconv.FormatInt(urlInfo.uploaded, 10)},
+		"downloaded": []string{strconv.FormatInt(urlInfo.downloaded, 10)},
+		"left":       []string{strconv.FormatInt(urlInfo.left, 10)},
 		"event":      []string{urlInfo.event},
 		"compact":    []string{tempCompact},
 	}

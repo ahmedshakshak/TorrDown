@@ -22,6 +22,7 @@ type TorrentFile struct {
 	downloadLength int64
 	infoHash       [20]byte
 	calculatedHash bool
+	numOfFiles     int32
 }
 
 func (t *TorrentFile) Read(filePath string) error {
@@ -95,6 +96,7 @@ func (t *TorrentFile) Read(filePath string) error {
 
 		for i := 0; i < len(t.info["files"].([]interface{})); i++ {
 			t.downloadLength += t.info["files"].([]interface{})[i].(map[string]interface{})["length"].(int64)
+			t.numOfFiles++
 		}
 
 	default:
@@ -107,8 +109,9 @@ func (t *TorrentFile) Read(filePath string) error {
 func (t *TorrentFile) getInfoHash() ([20]byte, error) {
 	if !t.calculatedHash {
 		var buf bytes.Buffer
-		err := bencode.Marshal(&buf, (*t).info)
+		err := bencode.Marshal(&buf, t.info)
 		t.infoHash = sha1.Sum(buf.Bytes())
+		fmt.Println(t.info)
 		t.calculatedHash = true
 		return t.infoHash, err
 	}
