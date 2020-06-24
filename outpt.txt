@@ -1,0 +1,36 @@
+[72 139 160 180 116 237 215 65 218 132 158 13 92 165 11 27 213 117 252 248]
+sending req:  http://0d.kebhana.mx:443/announce
+reqUrl:  http://0d.kebhana.mx:443/announce?compact=1&downloaded=%00&event=started&info_hash=%5B72+139+160+180+116+237+215+65+218+132+158+13+92+165+11+27+213+117+252+248%5D&left=%EF%BF%BD&peer_id=%5B49+50+51+52+53+54+55+56+57+49+50+51+52+53+54+55+56+57+48+49%5D&port=%E0%AE%B8&uploaded=%00
+res:  &{400 Bad Request 400 HTTP/1.1 1 1 map[Content-Length:[264] Content-Type:[text/html] Date:[Wed, 24 Jun 2020 17:30:01 GMT] Server:[nginx]] 0xc0000aa640 264 [] true false map[] 0xc000150400 <nil>}
+sending req:  http://0d.kebhana.mx:443/announce
+reqUrl:  http://0d.kebhana.mx:443/announce?compact=1&downloaded=%00&event=started&info_hash=%5B72+139+160+180+116+237+215+65+218+132+158+13+92+165+11+27+213+117+252+248%5D&left=%EF%BF%BD&peer_id=%5B49+50+51+52+53+54+55+56+57+49+50+51+52+53+54+55+56+57+48+49%5D&port=%E0%AE%B8&uploaded=%00
+res:  &{400 Bad Request 400 HTTP/1.1 1 1 map[Content-Length:[264] Content-Type:[text/html] Date:[Wed, 24 Jun 2020 17:30:05 GMT] Server:[nginx]] 0xc000320040 264 [] true false map[] 0xc0002ea100 <nil>}
+sending req:  udp://tw.opentracker.ga:36920/announce
+err:  Get udp://tw.opentracker.ga:36920/announce?compact=1&downloaded=%00&event=started&info_hash=%5B72+139+160+180+116+237+215+65+218+132+158+13+92+165+11+27+213+117+252+248%5D&left=%EF%BF%BD&peer_id=%5B49+50+51+52+53+54+55+56+57+49+50+51+52+53+54+55+56+57+48+49%5D&port=%E0%AE%B8&uploaded=%00: unsupported protocol scheme "udp"
+sending req:  udp://temp1.opentracker.gq:6969/announce
+err:  Get udp://temp1.opentracker.gq:6969/announce?compact=1&downloaded=%00&event=started&info_hash=%5B72+139+160+180+116+237+215+65+218+132+158+13+92+165+11+27+213+117+252+248%5D&left=%EF%BF%BD&peer_id=%5B49+50+51+52+53+54+55+56+57+49+50+51+52+53+54+55+56+57+48+49%5D&port=%E0%AE%B8&uploaded=%00: unsupported protocol scheme "udp"
+sending req:  udp://temp2.opentracker.gq:6969/announce
+err:  Get udp://temp2.opentracker.gq:6969/announce?compact=1&downloaded=%00&event=started&info_hash=%5B72+139+160+180+116+237+215+65+218+132+158+13+92+165+11+27+213+117+252+248%5D&left=%EF%BF%BD&peer_id=%5B49+50+51+52+53+54+55+56+57+49+50+51+52+53+54+55+56+57+48+49%5D&port=%E0%AE%B8&uploaded=%00: unsupported protocol scheme "udp"
+sending req:  udp://tracker.torrent.eu.org:451/announce
+err:  Get udp://tracker.torrent.eu.org:451/announce?compact=1&downloaded=%00&event=started&info_hash=%5B72+139+160+180+116+237+215+65+218+132+158+13+92+165+11+27+213+117+252+248%5D&left=%EF%BF%BD&peer_id=%5B49+50+51+52+53+54+55+56+57+49+50+51+52+53+54+55+56+57+48+49%5D&port=%E0%AE%B8&uploaded=%00: unsupported protocol scheme "udp"
+sending req:  http://torrent.nwps.ws:80/announce
+reqUrl:  http://torrent.nwps.ws:80/announce?compact=1&downloaded=%00&event=started&info_hash=%5B72+139+160+180+116+237+215+65+218+132+158+13+92+165+11+27+213+117+252+248%5D&left=%EF%BF%BD&peer_id=%5B49+50+51+52+53+54+55+56+57+49+50+51+52+53+54+55+56+57+48+49%5D&port=%E0%AE%B8&uploaded=%00
+res:  &{404 Not Found 404 HTTP/1.1 1 1 map[Content-Length:[196] Content-Type:[text/html; charset=iso-8859-1] Date:[Wed, 24 Jun 2020 17:38:28 GMT] Server:[Apache/2.4.41 (Fedora) mod_wsgi/4.6.4 Python/3.7]] 0xc0002b0180 196 [] false false map[] 0xc000150e00 <nil>}
+sending req:  udp://explodie.org:6969/announce
+err:  Get udp://explodie.org:6969/announce?compact=1&downloaded=%00&event=started&info_hash=%5B72+139+160+180+116+237+215+65+218+132+158+13+92+165+11+27+213+117+252+248%5D&left=%EF%BF%BD&peer_id=%5B49+50+51+52+53+54+55+56+57+49+50+51+52+53+54+55+56+57+48+49%5D&port=%E0%AE%B8&uploaded=%00: unsupported protocol scheme "udp"
+sending req:  https://opentracker.xyz:443/announce
+err:  Get https://opentracker.xyz:443/announce?compact=1&downloaded=%00&event=started&info_hash=%5B72+139+160+180+116+237+215+65+218+132+158+13+92+165+11+27+213+117+252+248%5D&left=%EF%BF%BD&peer_id=%5B49+50+51+52+53+54+55+56+57+49+50+51+52+53+54+55+56+57+48+49%5D&port=%E0%AE%B8&uploaded=%00: dial tcp: lookup opentracker.xyz on 192.168.1.1:53: server misbehaving
+sending req:  https://t.quic.ws:443/announce
+err:  Get https://t.quic.ws:443/announce?compact=1&downloaded=%00&event=started&info_hash=%5B72+139+160+180+116+237+215+65+218+132+158+13+92+165+11+27+213+117+252+248%5D&left=%EF%BF%BD&peer_id=%5B49+50+51+52+53+54+55+56+57+49+50+51+52+53+54+55+56+57+48+49%5D&port=%E0%AE%B8&uploaded=%00: dial tcp 72.52.178.23:443: connect: connection refused
+sending req:  https://tracker.fastdownload.xyz:443/announce
+err:  Get https://tracker.fastdownload.xyz:443/announce?compact=1&downloaded=%00&event=started&info_hash=%5B72+139+160+180+116+237+215+65+218+132+158+13+92+165+11+27+213+117+252+248%5D&left=%EF%BF%BD&peer_id=%5B49+50+51+52+53+54+55+56+57+49+50+51+52+53+54+55+56+57+48+49%5D&port=%E0%AE%B8&uploaded=%00: dial tcp: lookup tracker.fastdownload.xyz on 192.168.1.1:53: no such host
+sending req:  udp://tracker.opentrackr.org:1337/announce
+err:  Get udp://tracker.opentrackr.org:1337/announce?compact=1&downloaded=%00&event=started&info_hash=%5B72+139+160+180+116+237+215+65+218+132+158+13+92+165+11+27+213+117+252+248%5D&left=%EF%BF%BD&peer_id=%5B49+50+51+52+53+54+55+56+57+49+50+51+52+53+54+55+56+57+48+49%5D&port=%E0%AE%B8&uploaded=%00: unsupported protocol scheme "udp"
+sending req:  udp://ipv4.tracker.harry.lu:80/announce
+err:  Get udp://ipv4.tracker.harry.lu:80/announce?compact=1&downloaded=%00&event=started&info_hash=%5B72+139+160+180+116+237+215+65+218+132+158+13+92+165+11+27+213+117+252+248%5D&left=%EF%BF%BD&peer_id=%5B49+50+51+52+53+54+55+56+57+49+50+51+52+53+54+55+56+57+48+49%5D&port=%E0%AE%B8&uploaded=%00: unsupported protocol scheme "udp"
+sending req:  udp://tracker.coppersurfer.tk:6969/announce
+err:  Get udp://tracker.coppersurfer.tk:6969/announce?compact=1&downloaded=%00&event=started&info_hash=%5B72+139+160+180+116+237+215+65+218+132+158+13+92+165+11+27+213+117+252+248%5D&left=%EF%BF%BD&peer_id=%5B49+50+51+52+53+54+55+56+57+49+50+51+52+53+54+55+56+57+48+49%5D&port=%E0%AE%B8&uploaded=%00: unsupported protocol scheme "udp"
+sending req:  udp://tracker.justseed.it:1337/announce
+err:  Get udp://tracker.justseed.it:1337/announce?compact=1&downloaded=%00&event=started&info_hash=%5B72+139+160+180+116+237+215+65+218+132+158+13+92+165+11+27+213+117+252+248%5D&left=%EF%BF%BD&peer_id=%5B49+50+51+52+53+54+55+56+57+49+50+51+52+53+54+55+56+57+48+49%5D&port=%E0%AE%B8&uploaded=%00: unsupported protocol scheme "udp"
+sending req:  udp://open.demonii.si:1337/announce
+err:  Get udp://open.demonii.si:1337/announce?compact=1&downloaded=%00&event=started&info_hash=%5B72+139+160+180+116+237+215+65+218+132+158+13+92+165+11+27+213+117+252+248%5D&left=%EF%BF%BD&peer_id=%5B49+50+51+52+53+54+55+56+57+49+50+51+52+53+54+55+56+57+48+49%5D&port=%E0%AE%B8&uploaded=%00: unsupported protocol scheme "udp"

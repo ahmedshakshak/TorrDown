@@ -7,8 +7,8 @@ import (
 
 const version = "1"
 const userID = "0"
-const fileName = `/home/ahmed/Downloads/test.torrent` //`/home/ahmed/Downloads/Udemy - Certified Kubernetes Administrator (CKA) with Practice Tests.torrent`
-const peerID = "12345678912345678901"                 //"TorrDown:v" + version + ":" + userID
+const fileName = `/home/ahmed/Downloads/Udemy - Certified Kubernetes Administrator (CKA) with Practice Tests.torrent`
+const peerID = "12345678912345678901" //"TorrDown:v" + version + ":" + userID
 const port = int32(3000)
 
 func main() {
@@ -35,7 +35,7 @@ func main() {
 	piece["port"] = port
 	piece["downloaded"] = int64(0)
 	piece["uploaded"] = int64(0)
-	piece["left"] = int64(torrentFile.length)
+	piece["left"] = torrentFile.downloadLength
 	piece["event"] = "started"
 	piece["compact"] = true
 
