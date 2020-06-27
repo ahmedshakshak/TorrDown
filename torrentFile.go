@@ -111,7 +111,6 @@ func (t *TorrentFile) getInfoHash() ([20]byte, error) {
 		var buf bytes.Buffer
 		err := bencode.Marshal(&buf, t.info)
 		t.infoHash = sha1.Sum(buf.Bytes())
-		fmt.Println(t.info)
 		t.calculatedHash = true
 		return t.infoHash, err
 	}
