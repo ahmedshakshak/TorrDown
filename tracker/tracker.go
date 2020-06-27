@@ -51,7 +51,7 @@ func getPort(add string) int32 {
 	return ret
 }
 
-// converting Big indian bytes array to bo
+// converting Big endian bytes array to bits into byte array
 func toBit(val []byte) []byte {
 	ret := make([]byte, 8*len(val))
 
@@ -66,32 +66,24 @@ func toBit(val []byte) []byte {
 	return ret
 }
 
+// converting big endian bytes(2, 4, 8) to int32, int64
 func toInt(val []byte) interface{} {
 	// MSB is always zero, check the sign
 	switch len(val) {
-	case 4:
-		var ret int32
-		val = toBit(val)
-
-		for i := 0; i < 32; i++ {
-			ret |= (int32(val[i])) << i
-		}
-
-		return ret
 	case 8:
 		var ret int64
 		val = toBit(val)
 
-		for i := 0; i < 64; i++ {
+		for i := 0; i < len(val); i++ {
 			ret |= int64(val[i]) << i
 		}
 
 		return ret
-	default: // 2
+	default:
 		var ret int32
 		val = toBit(val)
 
-		for i := 0; i < 16; i++ {
+		for i := 0; i < len(val); i++ {
 			ret |= int32(val[i]) << i
 		}
 		return ret
@@ -99,6 +91,7 @@ func toInt(val []byte) interface{} {
 
 }
 
+//convert int32, int64 to big endian byte array
 func toBuf(valInterface interface{}) []byte {
 	var ret []byte
 	var size int
