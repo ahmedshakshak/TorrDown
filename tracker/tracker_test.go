@@ -129,9 +129,9 @@ func TestToBuf(t *testing.T) {
 		var res []byte
 
 		if i < 10 {
-			res = toBuf(int32(val))
+			res = ToBuf(int32(val))
 		} else {
-			res = toBuf(int64(val))
+			res = ToBuf(int64(val))
 		}
 
 		if !reflect.DeepEqual(res, answer[i]) {

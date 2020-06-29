@@ -2,7 +2,6 @@ package tracker
 
 import (
 	"errors"
-	"fmt"
 	"net"
 	"time"
 )
@@ -31,7 +30,7 @@ func (t *UDPTracker) GetPeerList(address string) ([]string, error) {
 
 func (t *UDPTracker) getPeerList(address string) ([]string, error) {
 	// connecting to the tracker
-	tempAddress := address[6 : len(address)-9] // removing `udp//` and `/announce`
+	tempAddress := getPureAddress(address) // removing `udp//` and `/announce`
 	conn, err := t.connectTracker(&tempAddress)
 	if err != nil {
 		return nil, err
@@ -81,8 +80,8 @@ func (t *UDPTracker) getPeerList(address string) ([]string, error) {
 
 func (t *UDPTracker) sendScapingPacket(conn *net.Conn, annPacketRes []byte) ([]byte, error) {
 	action := int32(2)
-	message := string(toBuf(t.connectingID)) + string(toBuf(action)) + string(toBuf(t.transactionID))
-	buffer, err := t.sendUDPReq(conn, &message)
+	message := string(ToBuf(t.connectingID)) + string(ToBuf(action)) + string(ToBuf(t.transactionID))
+	buffer, err := SendReq(conn, &message)
 
 	if err != nil {
 		return nil, err
@@ -94,11 +93,11 @@ func (t *UDPTracker) sendScapingPacket(conn *net.Conn, annPacketRes []byte) ([]b
 func (t *UDPTracker) sendAnnouncingPacket(conn *net.Conn, connPacketRes []byte) ([]byte, error) {
 	action := int32(1)
 	t.connectingID = toInt(connPacketRes[8:16]).(int64)
-	message := string(toBuf(t.connectingID)) + string(toBuf(action)) + string(toBuf(t.transactionID)) + string(t.infoHash[:]) +
-		string(t.peerID[:]) + string(toBuf(t.downloaded)) + string(toBuf(t.left)) + string(toBuf(t.uploaded)) +
-		string(toBuf(int32(2))) + string(toBuf(int32(0))) + string(toBuf(int32(1234))) + string(toBuf(int32(-1))) + string(getPort((*conn).LocalAddr().String()))
+	message := string(ToBuf(t.connectingID)) + string(ToBuf(action)) + string(ToBuf(t.transactionID)) + string(t.infoHash[:]) +
+		string(t.peerID[:]) + string(ToBuf(t.downloaded)) + string(ToBuf(t.left)) + string(ToBuf(t.uploaded)) +
+		string(ToBuf(int32(2))) + string(ToBuf(int32(0))) + string(ToBuf(int32(1234))) + string(ToBuf(int32(-1))) + string(getPort((*conn).LocalAddr().String()))
 
-	buffer, err := t.sendUDPReq(conn, &message)
+	buffer, err := SendReq(conn, &message)
 	if err != nil {
 		return nil, err
 	}
@@ -113,9 +112,9 @@ func (t *UDPTracker) sendAnnouncingPacket(conn *net.Conn, connPacketRes []byte) 
 func (t *UDPTracker) sendConnectingPacket(conn *net.Conn) ([]byte, error) {
 	connectingID := int64(0x41727101980)
 	action := int32(0)
-	message := string(toBuf(connectingID)) + string(toBuf(action)) + string(toBuf(t.transactionID))
+	message := string(ToBuf(connectingID)) + string(ToBuf(action)) + string(ToBuf(t.transactionID))
 
-	buffer, err := t.sendUDPReq(conn, &message)
+	buffer, err := SendReq(conn, &message)
 	if err != nil {
 		return nil, err
 	}
@@ -143,11 +142,11 @@ func (t *UDPTracker) connectTracker(tracker *string) (net.Conn, error) {
 	return conn, err
 }
 
-func (t *UDPTracker) sendUDPReq(conn *net.Conn, message *string) ([]byte, error) {
+func SendReq(conn *net.Conn, message *string) ([]byte, error) {
 	//sending message to the tracker
-	fmt.Fprintf(*conn, *message)
+	n, err := (*conn).Write([]byte(*message))
 	// reading tracker response
 	buffer := make([]byte, maxBufferSize)
-	n, err := (*conn).Read(buffer)
+	n, err = (*conn).Read(buffer)
 	return buffer[:n], err
 }

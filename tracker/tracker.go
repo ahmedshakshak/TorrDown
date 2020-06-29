@@ -36,6 +36,30 @@ func NewUDPTracker(piece map[string]interface{}) *UDPTracker {
 	return &tracker
 }
 
+func getPureAddress(address string) string {
+	s, e := 0, 0
+	var ok1, ok2 bool
+
+	for i, ch := range address {
+		if ok2 && (ch >= '0' && ch <= '9') {
+			e = i + 1
+		} else if ok2 && !(ch >= '0' && ch <= '9') {
+			break
+		}
+
+		if ok1 && address[i] == ':' {
+			ok2 = true
+		}
+
+		if i+1 < len(address) && address[i] == address[i+1] && address[i] == '/' {
+			ok1 = true
+			s = i + 2
+		}
+	}
+
+	return address[s:e]
+}
+
 func getPort(add string) int32 {
 	ret := int32(0)
 
@@ -92,7 +116,7 @@ func toInt(val []byte) interface{} {
 }
 
 //convert int32, int64 to big endian byte array
-func toBuf(valInterface interface{}) []byte {
+func ToBuf(valInterface interface{}) []byte {
 	var ret []byte
 	var size int
 	var val int64
@@ -108,7 +132,7 @@ func toBuf(valInterface interface{}) []byte {
 		val = int64(valInterface.(int32))
 	}
 
-	// checking neg val as MSB is always zero :(
+	// checking neg befor processing val as MSB for sgined integer is always zero :(
 	neg := false
 	idx := -1
 
@@ -147,10 +171,12 @@ func toBuf(valInterface interface{}) []byte {
 	return ret
 }
 
+// 4 byte array
 func toIP(val []byte) string {
 	return strconv.Itoa(int(val[0])) + "." + strconv.Itoa(int(val[1])) + "." + strconv.Itoa(int(val[2])) + "." + strconv.Itoa(int(val[3]))
 }
 
+// 2 byte big endian array
 func toPort(val []byte) string {
-	return strconv.Itoa(int(val[0]) + int(val[1]))
+	return strconv.Itoa((int(val[0]) << 8) + int(val[1]))
 }

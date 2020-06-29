@@ -5,7 +5,6 @@ import (
 	"crypto/sha1"
 	"fmt"
 	"io/ioutil"
-	"reflect"
 	"strings"
 
 	"github.com/jackpal/bencode-go"
@@ -40,7 +39,6 @@ func (t *TorrentFile) Read(filePath string) error {
 	}
 
 	dataMap := data.(map[string]interface{})
-	//	fmt.Println(dataMap)
 	switch dataMap["announce"].(type) {
 	case string:
 		t.announceList = []string{dataMap["announce"].(string)}
@@ -54,7 +52,6 @@ func (t *TorrentFile) Read(filePath string) error {
 			t.announceList = append(t.announceList, dataMap["announce-list"].([]interface{})[i].([]interface{})[0].(string))
 		}
 	default:
-		fmt.Println(reflect.TypeOf(dataMap["announce-list"]))
 		// do nothing
 	}
 

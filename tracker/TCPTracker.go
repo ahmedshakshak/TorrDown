@@ -27,30 +27,20 @@ type TCPTracker struct {
 // return list of peers
 
 func (t *TCPTracker) GetPeerList(tracker string) ([]string, error) {
-	req, err := http.NewRequest("GET", tracker, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	urlParameters := t.trackerParameters()
-	req.URL.RawQuery = urlParameters.Encode()
-	client := http.Client{}
-	res, err := client.Do(req)
+	res, err := t.sendRequest(&tracker)
 
 	if err != nil {
 		return nil, err
 	}
-
 	defer res.Body.Close()
-	buf := make([]byte, maxBufferSize)
-	n, err := res.Body.Read(buf)
-	if err != nil && err.Error() != "EOF" {
+
+	buf, err := t.readResBody(res)
+	if err != nil {
 		return nil, err
 	}
 
-	resReader := strings.NewReader(string(buf[:n]))
+	resReader := strings.NewReader(string(buf))
 	data, err := bencode.Decode(resReader)
-
 	if err != nil {
 		return nil, err
 	}
@@ -74,6 +64,28 @@ func (t *TCPTracker) GetPeerList(tracker string) ([]string, error) {
 	t.seeders = dataMap["complete"].(int64)
 	t.leachers = dataMap["incomplete"].(int64)
 	return peers, nil
+}
+
+func (t *TCPTracker) sendRequest(tracker *string) (*http.Response, error) {
+	req, err := http.NewRequest("GET", *tracker, nil)
+
+	if err != nil {
+		return nil, err
+	}
+
+	urlParameters := t.trackerParameters()
+	req.URL.RawQuery = urlParameters.Encode()
+	client := http.Client{}
+	return client.Do(req)
+}
+
+func (t *TCPTracker) readResBody(res *http.Response) ([]byte, error) {
+	buf := make([]byte, maxBufferSize)
+	n, err := res.Body.Read(buf)
+	if err != nil && err.Error() != "EOF" {
+		return nil, err
+	}
+	return buf[:n], nil
 }
 
 func (t *TCPTracker) trackerParameters() url.Values {
