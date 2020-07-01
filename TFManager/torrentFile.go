@@ -1,4 +1,4 @@
-package main
+package TFManager
 
 import (
 	"bytes"
@@ -90,9 +90,15 @@ func (t *TorrentFile) Read(filePath string) error {
 	switch dataMap["info"].(type) {
 	case map[string]interface{}:
 		t.info = dataMap["info"].(map[string]interface{})
+		fmt.Println(t.info)
 
-		for i := 0; i < len(t.info["files"].([]interface{})); i++ {
-			t.downloadLength += t.info["files"].([]interface{})[i].(map[string]interface{})["length"].(int64)
+		if t.info["files"] != nil {
+			for i := 0; i < len(t.info["files"].([]interface{})); i++ {
+				t.downloadLength += t.info["files"].([]interface{})[i].(map[string]interface{})["length"].(interface{}).(int64)
+				t.numOfFiles++
+			}
+		} else {
+			t.downloadLength += t.info["length"].(interface{}).(int64)
 			t.numOfFiles++
 		}
 

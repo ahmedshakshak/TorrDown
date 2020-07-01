@@ -4,17 +4,19 @@ import (
 	"fmt"
 	"log"
 
-	"TorrDown/tracker"
+	"TorrDown/P2P"
+	"TorrDown/TFManager"
+	"TorrDown/Tracker"
 )
 
 const version = "1"
 const userID = "0"
-const fileName = `C:\Users\Ahmed\Downloads\Justice League Dark Apokolips War (2020) [720p] [BluRay] [YTS.MX].torrent`
+const fileName = `C:\Users\Ahmed\Downloads\[limetorrents.info]Jonas.Blue.&.MAX..Naked.Pop..Single..2020..[320]..kbps.Beats⭐.torrent`
 const peerID = "12345678901234567890" //"TorrDown:v" + version + ":" + userID
 const port = int32(3000)
 
 func main() {
-	var torrentFile TorrentFile
+	var torrentFile TFManager.TorrentFile
 	err := torrentFile.Read(fileName)
 
 	if err != nil {
@@ -41,14 +43,14 @@ func main() {
 	piece["event"] = "started"
 	piece["compact"] = true
 
-	tcp := tracker.NewTCPTracker(piece)
-	udp := tracker.NewUDPTracker(piece)
-	peerChan := make(chan *Peer)
+	tcp := Tracker.NewTCPTracker(piece)
+	udp := Tracker.NewUDPTracker(piece)
+	peerChan := make(chan *P2P.Peer)
 	counter := 0
 
 	for i := 0; i < len(torrentFile.announceList); i++ {
-		fmt.Println(torrentFile.announceList[i])
 		peerlist := []string{}
+
 		if torrentFile.announceList[i][:3] == "udp" {
 			peerlist, err = udp.GetPeerList(torrentFile.announceList[i])
 		} else {
@@ -56,7 +58,8 @@ func main() {
 		}
 
 		for _, address := range peerlist {
-			p2p, err := NewP2P(&address, info_hash[:], []byte(peerID[:]))
+			p2p, err := P2P.NewP2P(&address, info_hash[:], []byte(peerID[:]))
+
 			if err != nil {
 				fmt.Printf("Error(P2P): error in creating new P2P(%v)\n", err)
 				continue
@@ -74,10 +77,12 @@ func main() {
 
 		if peer != nil {
 			fmt.Println("handshake ret:", peer.pieces)
+			peer.sendInterestedMessage(&peer.conn)
 		}
 	}
 
-	if err != nil {
-		fmt.Println("err: ", err)
-	}
+	/*	fmt.Println(err)
+		err = ioutil.WriteFile(`C:\Users\Ahmed\testGO\test.txt`, []byte("hi\n do u here mer ? ;D xD"), 0666)
+		fmt.Println(err)
+		os.Create()*/
 }

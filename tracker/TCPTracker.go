@@ -1,4 +1,4 @@
-package tracker
+package Tracker
 
 import (
 	"net/http"
